@@ -15,13 +15,13 @@
               <div class="weixiuli">
                 <div class="weixiulidiv">
                   <div class="weixiuimg img2"></div>
-                  <p class="p3">七天无理由退货</p>
+                  <router-link class="p3" to="/ReturnandExchange">七天无理由退货</router-link>
                 </div>
               </div>
               <div class="weixiuli">
                 <div class="weixiulidiv">
                   <div class="weixiuimg img3"></div>
-                  <p class="p3">15天免费换货</p>
+                  <router-link class="p3" to="/ReturnandExchange">15天免费换货</router-link>
                 </div>
               </div>
               <div class="weixiuli">
@@ -170,7 +170,6 @@
 
 <script>
 import {reactive, toRefs} from 'vue'
-
 export default {
   setup() {
     const state = reactive({
@@ -284,6 +283,7 @@ div.footer-A-top {
   align-self: center;
   color: #7a7a7a;
   transition: all 0.2s ease-in;
+  text-decoration: none;
 }
 
 .weixiulidiv:hover .p3 {
@@ -560,7 +560,6 @@ div.footer-C-content {
 .xintiao-img {
   display: flex;
   justify-content: center;
-  align-items:;
   width: 100%;
   height: 100%;
 }

@@ -15,6 +15,11 @@ const routes = [
     path: "/details",
     name: "Details",
     component: () => import("../views/Details.vue")   /* 商品详情页 */
+  },
+  {
+    path: "/ReturnandExchange",
+    name: "ReturnandExchange",
+    component: () => import("../views/ReturnandExchange.vue")   /* 商品详情页 */
   }
 ]
 /* 创建路由管理器 */
