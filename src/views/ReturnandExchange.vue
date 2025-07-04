@@ -194,7 +194,7 @@
 </template>
 
 <script>
-import { reactive, toRefs, getCurrentInstance } from 'vue'
+import { reactive, toRefs } from 'vue'
 import blacknav from '../components/common/BlackNav.vue'
 import whitenav from '../components/common/WhiteNav.vue'
 import myfooter from '../components/common/MyFooter.vue'
@@ -374,18 +374,19 @@ export default {
   display: block;
   unicode-bidi: isolate;
   width: 1226px;
-  height: 175px;
+  height: 170px;
+  margin-bottom: 45px;
 }
 
 .link-item {
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .link-text {
   color:#333;
   font-size: 14px;
-  line-height: 28px;
-  margin-left: 0;
+  line-height: 17px;
+  padding-left: 20px;
   display: block;
   margin-inline-start: 40px;
   unicode-bidi: isolate;

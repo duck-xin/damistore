@@ -20,6 +20,11 @@ const routes = [
     path: "/ReturnandExchange",
     name: "ReturnandExchange",
     component: () => import("../views/ReturnandExchange.vue")   /* 商品详情页 */
+  },
+  {
+    path:"/FreeShip",
+    name: "FreeShip",
+    component: () => import("../views/FreeShip.vue")
   }
 ]
 /* 创建路由管理器 */

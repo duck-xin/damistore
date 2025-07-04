@@ -27,7 +27,7 @@
               <div class="weixiuli">
                 <div class="weixiulidiv">
                   <div class="weixiuimg img4"></div>
-                  <p class="p3">满69包邮</p>
+                  <router-link class="p3" to="/FreeShip">满69包邮</router-link>
                 </div>
               </div>
               <div class="weixiuli last">
