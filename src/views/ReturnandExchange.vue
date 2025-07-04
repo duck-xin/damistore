@@ -133,6 +133,33 @@
                 <div class="category-item">
                   <p class="category-name">米家多联机</p>
                 </div>
+                <div class="category-item">
+                  <p class="category-name">笔记本</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">VR眼镜</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">维修工具</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">车载电子产品</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">数据线及充电</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">贴纸&保护套&卡针</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">米家空调</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">翻译机</p>
+                </div>
+                <div class="category-item">
+                  <p class="category-name">米家冰柜</p>
+                </div>
               </div>
             </div>
 
@@ -258,7 +285,7 @@ export default {
 .promise-item {
   list-style: none;
   display: inline-block;
-  margin: 67px 80px 62px;
+  margin: 40px 80px 40px;
   vertical-align: top;
 }
 
@@ -268,7 +295,6 @@ export default {
   margin-bottom: 24px;
   background-image: url("../assets/img/exchange/number.png");
   background-repeat: no-repeat;
-  margin: 0 auto;
 }
 
 .promise-icon.icon01 {
@@ -315,25 +341,28 @@ export default {
 .query-categories {
   padding: 28px 0;
   background: #fff;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 15px;
+  justify-items: center;
 }
 
 .category-item {
-  width: 206px;
-  padding: 14px 50px;
+  width: auto;
+  padding: 0;
   text-align: center;
 }
 
 .category-name {
   color: #757575;
   text-decoration: none;
-  margin-inline-start: 40px;
+  margin-inline-start: 0;
   font-size: 14px;
-  line-height: 28px;
+  line-height: 24px;
   margin-left: 0;
 }
+
 
 .category-name:hover {
   color: #ff6700;
