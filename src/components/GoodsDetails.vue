@@ -227,11 +227,15 @@
 </template>
 <script>
 import {onMounted, computed, reactive, toRefs} from 'vue'
-import {useRoute} from 'vue-router'
+import {useRoute,useRouter} from 'vue-router'
 import {getCurrentInstance} from 'vue'
+import useCartStore from '@/stores/cartstore.js';
 
 export default {
     setup() {
+      //先导入
+      const router = useRouter()
+      const cartstore = useCartStore()
         const {proxy} = getCurrentInstance()
         const route = useRoute()
         const state = reactive({
@@ -244,7 +248,18 @@ export default {
             yiwaibaoxian: {},
             yanchangbaoxian: {},
             yunserve: {},
-            total: 0
+            total: 0,
+          selectedshangpian:{
+            shangpinid:0,               //选择的是哪个商品
+            data:{                      //具体的是配置信息对应id
+              xinghaoid: 0,
+              peizhiid: 0,
+              colorid: 0,
+              yiwaibaoxianid: 0,
+              yanchangbaoxianid: 0,
+              yunserveid: 0
+            }
+          }
 
         })
         // 定义当前型号、配置、颜色、意外保险、延保、云服务对应的选中方法
@@ -290,8 +305,7 @@ export default {
                 state.yunserve = state.shangpin.yunserve[index];
             }
         }
-        const gomycart = () => {
-        }
+
         //保护内部变量
         const ShangPinData = computed(() => {
             return state.shangpin;
@@ -362,9 +376,24 @@ export default {
             }
             return state.total;
         })
+      const gomycart = () => {
+        state.selectedshangpian.shangpinid = state.id;
+        state.selectedshangpian.data.xinghaoid = state.xinghao.id;
+        state.selectedshangpian.data.peizhiid = state.peizhi.id;
+        state.selectedshangpian.data.colorid = state.color.id;
+        state.selectedshangpian.data.yiwaibaoxianid = state.yiwaibaoxian.id;
+        state.selectedshangpian.data.yanchangbaoxianid = state.yanchangbaoxian.id;
+        state.selectedshangpian.data.yunserveid = state.yunserve.id;
+        cartstore.addShangPinInCart(state.selectedshangpian);
+        cartstore.getShangPinsInCart.length;
+        router.push({
+          path: '/mycart' ,
+        })
+      }
 
 
-        onMounted(() => {
+
+      onMounted(() => {
             state.id = route.query.id;
             //console.log(state.id);//传值测试
             state.shangpin =  proxy.$malldata[state.id];

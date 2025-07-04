@@ -1,7 +1,7 @@
 /* 导入创建路由管理器的相关指令 */
 import { createRouter, createWebHistory } from "vue-router"
 /* 导出路由数组 */
-const routes = [
+export  const routes = [
   {
     path: "/",
     redirect: "/home"   /* 路由重定向 */
@@ -25,7 +25,18 @@ const routes = [
     path:"/FreeShip",
     name: "FreeShip",
     component: () => import("../views/FreeShip.vue")
+  },
+  {
+    path: '/mycart',
+    name: 'Mycart',
+    component: () => import('../views/Mycart.vue')   /* 购物车页面 */
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')  /* 登录页面 */
   }
+
 ]
 /* 创建路由管理器 */
 const router = createRouter({
@@ -33,4 +44,4 @@ const router = createRouter({
   routes: routes
 })
 /* 导出路由管理器供外界使用 */
-export default router
+
