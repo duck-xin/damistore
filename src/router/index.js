@@ -31,6 +31,11 @@ export  const routes = [
     name: 'Mycart',
     component: () => import('../views/Mycart.vue')   /* 购物车页面 */
   },
+  {
+    path:"/Service",
+    name: "Service",
+    component: () => import('../views/Service.vue')
+  }
   // {
   //   path: '/login',
   //   name: 'Login',

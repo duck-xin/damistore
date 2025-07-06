@@ -9,7 +9,7 @@
               <div class="weixiuli">
                 <div class="weixiulidiv">
                   <div class="weixiuimg img1"></div>
-                  <p class="p3">预约维修服务</p>
+                  <router-link class="p3" to="/Service">预约维修服务</router-link>
                 </div>
               </div>
               <div class="weixiuli">

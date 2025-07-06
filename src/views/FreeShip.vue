@@ -11,7 +11,6 @@
         <a href="#">服务中心</a>
         <span class="sep">/</span>
         <a href="#">购物指南</a>
-
       </div>
 
     </div>
@@ -65,10 +64,6 @@
       </div>
     </div>
   </div>
-
-
-
-
     <myfooter></myfooter>
 </template>
 
