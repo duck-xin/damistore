@@ -31,11 +31,11 @@ export  const routes = [
     name: 'Mycart',
     component: () => import('../views/Mycart.vue')   /* 购物车页面 */
   },
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../views/Login.vue')  /* 登录页面 */
-  }
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: () => import('../views/Login.vue')  /* 登录页面 */
+  // }
 
 ]
 /* 创建路由管理器 */
@@ -43,5 +43,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: routes
 })
-/* 导出路由管理器供外界使用 */
 
+/* 导出路由管理器供外界使用 */
+//使用默认导出
+export default router;

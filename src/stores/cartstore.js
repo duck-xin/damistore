@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import router from "@/router/index.js";
 export const useCartStore = defineStore("cartstore", {
     state: () => ({
         //购物车内的商品数组
@@ -17,4 +18,5 @@ export const useCartStore = defineStore("cartstore", {
         }
     }
 });
-
+//使用默认导出
+export default useCartStore;
