@@ -56,6 +56,11 @@
                 950816
               </span>
           </p>
+          <p class="tip">
+            手机、电视盒子、智能硬件等
+            <br>
+            服务时间：8:00-18:00
+          </p>
         </li>
         <li class="a">
           <p class="neirong">
@@ -65,6 +70,11 @@
                 <br>
                400-100-3399
               </span>
+          </p>
+         <p class="tip">
+            贷款、保险、理财、钱包
+            <br>
+            服务时间：9:00-19:00
           </p>
         </li>
         <li class="a">
@@ -76,6 +86,12 @@
                 10046
               </span>
           </p>
+           <p class="tip">
+            任我行、吃到饱、米粉卡等
+            <br>
+            服务时间：9:00-18:00
+          </p>
+          
         </li>
         <li class="a">
           <p class="neirong">
@@ -86,10 +102,14 @@
                 400-098-1666
               </span>
           </p>
+          <p class="tip">
+            小米游戏相关
+            <br>
+            服务时间：8:00-18:00
+          </p>
+          
         </li>
         <div class="clearfix">
-          ::before
-          ::after
         </div>
       </ul>
       </div>
@@ -132,6 +152,7 @@ export default {
 }
 .breadcrumbs .container p {
   display: inline;
+  color:#757575;
   margin: 0;
   padding: 0;
 }
@@ -181,6 +202,19 @@ export default {
   text-align: -webkit-match-parent;
   unicode-bidi: isolate;
 }
+.common-contact ul li span{
+   position: relative;
+    top: -14px;
+    display: inline-block;
+    margin-left: 20px;
+}
+.common-contact .a .tip{
+  margin-top: 50px;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+
+}
 .common-contact .a{
   float: left;
   width: 296px;
@@ -189,7 +223,6 @@ export default {
   margin: 0 14px 17px 0;
   background-color: #fff;
   cursor: pointer;
-  -webkit-transition: all .5s ease-in-out;
 }
 .common-contact .a .neirong{
   margin: 0;
@@ -197,9 +230,11 @@ export default {
   color: #000;
   font-size: 18px;
   text-align: center;
-
-
-
+}
+.clearfix {
+   content: "";
+  display: table;
+   clear: both; 
 }
 
 </style>
