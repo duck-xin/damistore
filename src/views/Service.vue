@@ -4,9 +4,11 @@
   <whitenav></whitenav>
     <div class="breadcrumbs">
       <div class="container">
-        <p class="sep">首页/</p>
-        <p class="sep">服务中心/</p>
-        <p>联系客服</p>
+        <span class="crumb">首页</span>
+      <span class="sep">/</span>
+      <span class="crumb">服务中心</span>
+      <span class="sep">/</span>
+      <span class="current">联系客服</span>
       </div>
     </div>
     <div class="contact">
@@ -31,21 +33,37 @@
               </span>
           </p>
         </li>
-        <li class="a">
+        <li class="a" data-hover="wechat">
           <p class="neirong">
             <img src="../assets/img/contact/contact_icon34.png">
             <span>
                 小米服务微信
               </span>
           </p>
+          <img src="../assets/img/contact/service.png"
+          alt="hover-img" 
+          class="hover-img"
+          style="display: none;
+                padding-top: 80px;
+                 margin: 0 auto;
+                  width: 140px; height: 140px;"
+          >
         </li>
-        <li class="a">
+        <li class="a" data-hover="mall-wechat">
           <p class="neirong">
             <img src="../assets/img/contact/contact_icon34.png">
             <span>
                 商城官方微信
               </span>
           </p>
+          <img src="../assets/img/contact/service.png"
+          alt="hover-img" 
+          class="hover-img"
+          style="display: none;
+                padding-top: 80px;
+                 margin: 0 auto;
+                  width: 140px; height: 140px;"
+          >
         </li>
         <li class="a">
           <p class="neirong">
@@ -130,16 +148,26 @@ export default {
     whitenav,
     myfooter
   },
-  setup() {
-    //创建响应式状态对象
-    const state = reactive({
-
+  mounted(){
+    const wechatItems=document.querySelectorAll('li.a[data-hover]')
+    wechatItems.forEach((item)=>{
+      item.addEventListener('mouseenter',()=>{
+        const neirong=item.querySelector('.neirong')
+        neirong.style.display='none'
+         const hoverImg = item.querySelector('.hover-img')
+        hoverImg.style.display = 'block'
+      })
+      //鼠标离开时
+      item.addEventListener('mouseleave', () => {
+       
+        const neirong = item.querySelector('.neirong')
+        neirong.style.display = 'block'
+       
+        const hoverImg = item.querySelector('.hover-img')
+        hoverImg.style.display = 'none'
     })
-
-    return {
-      ...toRefs(state)
-    }
-  }
+  })
+}
 }
 </script>
 
@@ -150,15 +178,21 @@ export default {
   min-width: 1226px;
   position: relative;
 }
-.breadcrumbs .container p {
-  display: inline;
-  color:#757575;
-  margin: 0;
-  padding: 0;
-}
-.sep:hover {
-  color: #FF5500;
+.breadcrumbs .crumb {
+  color: #757575;
   cursor: pointer;
+  margin: 0 4px; 
+}
+
+.breadcrumbs .container .crumb:hover {
+  color: #FF5500;
+}
+.breadcrumbs .current{
+   color: #757575;
+}
+.breadcrumbs .sep {
+  color: #757575;
+  margin: 0 4px; 
 }
 .breadcrumbs {
   height: 40px;
@@ -167,10 +201,11 @@ export default {
   background: #f5f5f5
 }
 
-.container {
+.breadcrumbs .container {
   width: 1226px;
-  margin-right: auto;
-  margin-left: auto
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
 }
 .contact{
   padding: 20px 0 60px 0;
@@ -210,7 +245,7 @@ export default {
 }
 .common-contact .a .tip{
   margin-top: 50px;
-  color: #000;
+  color: #757575;
   font-size: 14px;
   text-align: center;
 
@@ -222,7 +257,12 @@ export default {
   list-style: none;
   margin: 0 14px 17px 0;
   background-color: #fff;
-  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+.common-contact .a:hover {
+  transform: translateY(-5px); 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); 
 }
 .common-contact .a .neirong{
   margin: 0;
