@@ -19,28 +19,28 @@
         <div class="left-menu">
           <h3>购物指南</h3>
           <ul>
-            <li :class="{ active: currentTab === 'delivery' }" @click="currentTab('delivery')">
+            <li :class="{ active: activeTab === 'delivery' }" @click="currentTab('delivery')">
               发货实效
             </li>
-            <li :class="{ active: currentTab === 'cart' }" @click="currentTab('cart')">
+            <li :class="{ active: activeTab === 'cart' }" @click="currentTab('cart')">
               购物车常见问题和购物技巧
             </li>
-            <li :class="{ active: currentTab === 'salestime' }" @click="currentTab('salestime')">
+            <li :class="{ active: activeTab === 'salestime' }" @click="currentTab('salestime')">
               销售时间
             </li>
-            <li :class="{ active: currentTab === 'freeship' }" @click="currentTab('freeship')">
+            <li :class="{ active: activeTab === 'freeship' }" @click="currentTab('freeship')">
               包邮政策
             </li>
-            <li :class="{ active: currentTab === 'payment' }" @click="currentTab('payment')">
+            <li :class="{ active: activeTab === 'payment' }" @click="currentTab('payment')">
               支付帮助
             </li>
-            <li :class="{ active: currentTab === 'activity' }" @click="currentTab('activity')">
+            <li :class="{ active: activeTab === 'activity' }" @click="currentTab('activity')">
               活动相关
             </li>
-            <li :class="{ active: currentTab === 'antifraud' }" @click="currentTab('antifraud')">
+            <li :class="{ active: activeTab === 'antifraud' }" @click="currentTab('antifraud')">
               防诈骗提示
             </li>
-            <li :class="{ active: currentTab === 'contact' }">
+            <li :class="{ active: activeTab === 'contact' }">
               <router-link to="/Service" @click.native="handleContactClick">联系客服</router-link>
             </li>
           </ul>
@@ -48,8 +48,8 @@
       </div>
 
       <div class="right-content">
-        <!-- 发货时效/防诈骗提示 -->
-        <div class="right-box" v-if="delivery || fraud">
+        <!-- 判断发货时效/防诈骗提示 -->
+        <div class="right-box" v-if="delivery || antifraud">
           <div class="title">
             {{ title }}
           </div>
@@ -67,7 +67,7 @@
             </div>
           </div>
 
-          <div class="boxone" v-if="fraud">
+          <div class="boxone" v-if="antifraud">
             <div class="c">
               <p>尊敬的小米用户：</p>
               <p>近期收到用户反馈，有不法分子冒充小米工作人员通过电话和短信形式联系小米用户进行诈骗，或者以刷单返现为名义让用户进行支付，为避免广大用户上当受骗遭受经济损失，请您关注以下信息:</p>
@@ -100,11 +100,11 @@
         </div>
 
         <!-- 购物车/销售时间/包邮政策等折叠面板 -->
-        <div class="service-content" v-if="cart || time || ship || payment || activity">
+        <div class="service-content" v-if="cart || salestime || freeship || payment || activity">
           <div class="collapse-panel" v-for="(item, index) in localItems" :key="index">
             <div class="collapse-header" @click="toggleCollapse(index)">
               <span>{{ item.title }}</span>
-              <span class="collapse-icon">{{ openStates[index] ? '−' : '+' }}</span>
+              <span class="collapse-icon">{{ openStates[index] ? '∧' : '∨' }}</span>
             </div>
             <div class="collapse-content" v-show="openStates[index]">
               <div class="con">
@@ -138,41 +138,49 @@ export default {
       breadcrumbtitle:{
       delivery: '发货时效',
       cart: '购物车常见问题和购物技巧',
-      salestime: '销售时间', // 注意key要与导航标识一致（原点击事件传的是'time'，这里需要统一，见步骤2）
+      salestime: '销售时间',
       freeship: '包邮政策',
       payment: '支付帮助',
       activity: '活动相关',
       antifraud: '防诈骗提示',
       contact: '联系客服'
     },
-    currentBreadcrumb: '发货时效' ,// 默认面包屑文本
-      title: "什么时候发货/到货？",
-      delivery: true,
+    currentBreadcrumb: '包邮政策' ,
+      title: "包邮政策",
+      delivery: false,
       antifraud: false,
       cart: false,
       salestime: false,
-      freeship: false,
+      freeship: true,
       payment: false,
       activity: false,
-      // 本地维护的items副本（基于props初始化）
-      localItems: [...this.items],
-      // 折叠面板状态（基于本地数据长度初始化）
-      openStates: this.items.map(() => false)
+      activeTab:'freeship',
+      // props初始化
+      //localItems: [...this.items],
+      // 折叠面板状态
+      //openStates: this.items.map(() => false)
+      localItems: [], // 初始为空
+      openStates: [], // 初始为空
+      
     };
+  },
+  //设为包邮政策为初始页面
+  created(){
+      this.setFreeshipData();
   },
   components: {
     blacknav,
     whitenav,
     myfooter
   },
-  // 监听props.items变化，实时更新本地副本
+  // 监听props.items变化
   watch: {
     items: {
       handler(newVal) {
         this.localItems = [...newVal];
-        this.openStates = newVal.map(() => false); // 同步更新折叠状态
+        this.openStates = newVal.map(() => false); // 更新折叠状态
       },
-      deep: true // 深度监听数组内部变化
+      deep: true // 监听数组
     }
   },
   setup() {
@@ -180,15 +188,44 @@ export default {
     return { ...toRefs(state) }
   },
   methods: {
+    setFreeshipData(){
+      this.localItems = [
+        
+        {
+          title: '为什么自营商品订单满69元还要支付快递费用？',
+          content: '1.“满69元免邮费”是指实际支付金额超过69元。\n'
+            + '2. 订单中是否有特殊商品需要单独支付邮费。\n'
+            + '3. 虚拟商品（如安装服务）单独购买不承担运费；虚拟商品和其他商品一起购买时，不参与满69元即免邮的活动'
+        },
+        {
+          title: '小米商城自营商品满多少元包邮？',
+          content: '以您实际支付69元为基准包邮，活动期间除外，免邮价格随活动策略制定。特殊商品如体重秤、大家电等单独收取快递费用。'
+        },
+        {
+          title: '第三方商家商品包邮政策',
+          content: '1.第三方商家商品由第三方商家负责发货并自行提供配送服务。\n'
+            + '2. 小米自营商品包邮政策不适用于第三方商家商品，第三方卖家商品请您直接联系商家详询配送方式及运费标准。\n'
+        }
+      ];
+      this.openStates = this.localItems.map(() => false);
+    },
     toggleCollapse(index) {
-      // 基于本地数据控制折叠状态
+      // 控制折叠状态
       this.openStates[index] = !this.openStates[index];
     },
     currentTab(navTab) {
       // 重置所有状态
-      this.delivery = this.fraud = this.time = this.ship = this.cart = this.payment = this.activity = false;
+    this.delivery = false;
+    this.antifraud = false;
+    this.cart = false;
+    this.salestime = false;
+    this.freeship = false;
+    this.payment = false;
+    this.activity = false;
        this.currentBreadcrumb = this.breadcrumbtitle[navTab] || '';
-      // 根据不同tab更新本地数据
+      //更新activeTab
+      this.activeTab = navTab; 
+      // 根据不同更新
       switch (navTab) {
         case 'delivery':
           this.delivery = true;
@@ -196,7 +233,7 @@ export default {
           break;
           
         case 'antifraud':
-          this.fraud = true;
+          this.antifraud = true;
           this.title = '谨防假借小米公司名义的诈骗';
           break;
           
@@ -219,7 +256,7 @@ export default {
           break;
           
         case 'salestime':
-          this.time = true;
+          this.salestime = true;
           this.title = '销售时间';
           this.localItems = [
             {
@@ -239,25 +276,9 @@ export default {
           break;
           
         case 'freeship':
-          this.ship = true;
+          this.freeship = true;
           this.title = '包邮政策';
-          this.localItems = [
-            {
-              title: '为什么自营商品订单满69元还要支付快递费用？',
-              content: '1.“满69元免邮费”是指实际支付金额超过69元。\n'
-                + '2. 订单中是否有特殊商品需要单独支付邮费。\n'
-                + '3. 虚拟商品（如安装服务）单独购买不承担运费；虚拟商品和其他商品一起购买时，不参与满69元即免邮的活动'
-            },
-            {
-              title: '小米商城自营商品满多少元包邮？',
-              content: '以您实际支付69元为基准包邮，活动期间除外，免邮价格随活动策略制定。特殊商品如体重秤、大家电等单独收取快递费用。'
-            },
-            {
-              title: '第三方商家商品包邮政策',
-              content: '1.第三方商家商品由第三方商家负责发货并自行提供配送服务。\n'
-                + '2. 小米自营商品包邮政策不适用于第三方商家商品，第三方卖家商品请您直接联系商家详询配送方式及运费标准。\n'
-            }
-          ];
+          this.setFreeshipData();
           this.openStates = this.localItems.map(() => false);
           break;
           
