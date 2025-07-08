@@ -5,9 +5,13 @@
   <div class="main">
     <div class="breadcrumbs">
       <div class="container">
-        <p class="sep">首页/</p>
-        <p class="sep">服务中心/</p>
-        <p>小米售后服务政策查询</p>
+        <span class="crumb">首页</span>
+      <span class="sep">/</span>
+      <span class="crumb">服务中心</span>
+      <span class="sep">/</span>
+      <span class="crumb">购物指南</span>
+      <span class="sep">/</span>
+      <span class="crumb">{{ currentBreadcrumb }}</span>
       </div>
     </div>
     <div class="container">
@@ -21,10 +25,10 @@
             <li :class="{ active: currentTab === 'cart' }" @click="currentTab('cart')">
               购物车常见问题和购物技巧
             </li>
-            <li :class="{ active: currentTab === 'sales-time' }" @click="currentTab('time')">
+            <li :class="{ active: currentTab === 'salestime' }" @click="currentTab('salestime')">
               销售时间
             </li>
-            <li :class="{ active: currentTab === 'free-ship' }" @click="currentTab('ship')">
+            <li :class="{ active: currentTab === 'freeship' }" @click="currentTab('freeship')">
               包邮政策
             </li>
             <li :class="{ active: currentTab === 'payment' }" @click="currentTab('payment')">
@@ -33,11 +37,11 @@
             <li :class="{ active: currentTab === 'activity' }" @click="currentTab('activity')">
               活动相关
             </li>
-            <li :class="{ active: currentTab === 'anti-fraud' }" @click="currentTab('fraud')">
+            <li :class="{ active: currentTab === 'antifraud' }" @click="currentTab('antifraud')">
               防诈骗提示
             </li>
             <li :class="{ active: currentTab === 'contact' }">
-              <router-link to="/Service">联系客服</router-link>
+              <router-link to="/Service" @click.native="handleContactClick">联系客服</router-link>
             </li>
           </ul>
         </div>
@@ -131,12 +135,23 @@ export default {
   },
   data() {
     return {
+      breadcrumbtitle:{
+      delivery: '发货时效',
+      cart: '购物车常见问题和购物技巧',
+      salestime: '销售时间', // 注意key要与导航标识一致（原点击事件传的是'time'，这里需要统一，见步骤2）
+      freeship: '包邮政策',
+      payment: '支付帮助',
+      activity: '活动相关',
+      antifraud: '防诈骗提示',
+      contact: '联系客服'
+    },
+    currentBreadcrumb: '发货时效' ,// 默认面包屑文本
       title: "什么时候发货/到货？",
       delivery: true,
-      fraud: false,
+      antifraud: false,
       cart: false,
-      time: false,
-      ship: false,
+      salestime: false,
+      freeship: false,
       payment: false,
       activity: false,
       // 本地维护的items副本（基于props初始化）
@@ -172,7 +187,7 @@ export default {
     currentTab(navTab) {
       // 重置所有状态
       this.delivery = this.fraud = this.time = this.ship = this.cart = this.payment = this.activity = false;
-      
+       this.currentBreadcrumb = this.breadcrumbtitle[navTab] || '';
       // 根据不同tab更新本地数据
       switch (navTab) {
         case 'delivery':
@@ -180,7 +195,7 @@ export default {
           this.title = '什么时候发货/到货？';
           break;
           
-        case 'fraud':
+        case 'antifraud':
           this.fraud = true;
           this.title = '谨防假借小米公司名义的诈骗';
           break;
@@ -203,23 +218,27 @@ export default {
           this.openStates = this.localItems.map(() => false); // 重置折叠状态
           break;
           
-        case 'time':
+        case 'salestime':
           this.time = true;
           this.title = '销售时间';
           this.localItems = [
             {
-              title: '在结算页无法使用优惠券？',
-              content: '可能参加活动人数较多，建议刷新网页尝试；有的品类券不支持别的品类商品，所以也不能使用，具体详情可参照优惠券使用详情。'
+              title: '缺货的产品什么时间能下单购买？',
+              content: '小米商城的部分商品，当您选择的收货区域无货时，可以点选到货通知。开启到货通知功能后，产品开售前，小米商城APP会分批以PUSH的形式通知您。设置成功后支持取消。'
             },
             {
-              title: '为什么购物车中显示有货，去结算时无货？',
-              content: '1.可能您未设置查看下单地址中“配送至地区”，如果“结算页面设置的地区”和“购物车中的配送至地区”不同，有些商品在本地区无货，但别的地区还有货，建议去结算前请先核对页面右上角的“配送至地区”，看是否有货；\n 2.当您加入购物车后未及时下单支付，可能被其他排队用户买走，则会出现下单时显示无货、商品失效或无法支付等情况，所以建议您选好商品确认收货信息无误后，尽快下单支付；\n 3.小米商城订单，是否购买成功已订单支付后最终显示结果为准，未购买到的用户，建议您关注官网，参加下次活动。'
+              title: '什么时候能购买小米商城活动的产品？',
+              content: '登陆小米商城，选择您所喜爱的产品，点击“立即购买”之后，在商品详情页会有本产品的销售时间提示哦，预祝您买到自己心仪的产品。'
+            },
+            {
+              title:'新品没买到下次什么时间可以购买？',
+              content:'本次活动结束后，官网稍后会在产品界面显示下次购买时间，敬请关注。'
             }
           ];
           this.openStates = this.localItems.map(() => false);
           break;
           
-        case 'ship':
+        case 'freeship':
           this.ship = true;
           this.title = '包邮政策';
           this.localItems = [
@@ -290,7 +309,10 @@ export default {
           this.openStates = this.localItems.map(() => false);
           break;
       }
-    }
+    },
+    handleContactClick(){
+        this.currentTab('contact');
+      }
   }
 }
 </script>
@@ -309,14 +331,18 @@ export default {
   line-height: 40px;
   background: #f5f5f5
 }
-
-.breadcrumbs a:hover {
-  color: #ff6700
+.breadcrumbs .crumb {
+  color: #757575;
+  cursor: pointer;
+  margin: 0 4px; 
 }
 
+.breadcrumbs .container .crumb:hover {
+  color: #FF5500;
+}
 .breadcrumbs .sep {
-  margin: 0 .5em;
-  color: #b0b0b0
+  color: #757575;
+  margin: 0 4px; 
 }
 
 a {
@@ -337,20 +363,6 @@ a:hover {
   margin-right: auto;
   margin-left: auto
 }
-
-.sep {
-  float: left;
-  height: 40px;
-  font-size: 12px;
-  line-height: 40px;
-  color: #757575;
-}
-
-.sep:hover {
-  color: #FF5500;
-  cursor: pointer;
-}
-
 .left-nav {
   width: 234px;
   margin-left: 14px;
