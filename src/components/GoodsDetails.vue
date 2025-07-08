@@ -305,7 +305,23 @@ export default {
                 state.yunserve = state.shangpin.yunserve[index];
             }
         }
+        //购物车部分
+        const gomycart = () => {
+      state.selectedshangpian.shangpinid = state.id;
+      state.selectedshangpian.data.xinghaoid = state.xinghao.id;
+      state.selectedshangpian.data.peizhiid = state.peizhi.id;
+      state.selectedshangpian.data.colorid = state.color.id;
+      state.selectedshangpian.data.yiwaibaoxianid = state.yiwaibaoxian.id;
+      state.selectedshangpian.data.yanchangbaoxianid = state.yanchangbaoxian.id;
+      state.selectedshangpian.data.yunserveid = state.yunserve.id;
+      cartstore.addShangPinInCart(state.selectedshangpian);
+      cartstore.getShangPinsInCart.length;
+      router.push({
+        path: '/mycart' ,
+      })
 
+
+    }
         //保护内部变量
         const ShangPinData = computed(() => {
             return state.shangpin;
@@ -376,20 +392,7 @@ export default {
             }
             return state.total;
         })
-      const gomycart = () => {
-        state.selectedshangpian.shangpinid = state.id;
-        state.selectedshangpian.data.xinghaoid = state.xinghao.id;
-        state.selectedshangpian.data.peizhiid = state.peizhi.id;
-        state.selectedshangpian.data.colorid = state.color.id;
-        state.selectedshangpian.data.yiwaibaoxianid = state.yiwaibaoxian.id;
-        state.selectedshangpian.data.yanchangbaoxianid = state.yanchangbaoxian.id;
-        state.selectedshangpian.data.yunserveid = state.yunserve.id;
-        cartstore.addShangPinInCart(state.selectedshangpian);
-        cartstore.getShangPinsInCart.length;
-        router.push({
-          path: '/mycart' ,
-        })
-      }
+      
 
 
 

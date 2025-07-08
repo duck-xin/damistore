@@ -9,17 +9,17 @@ export  const routes = [
   {
     path: "/home",
     name: "Home",
-    component: () => import("../views/HomePage.vue")   /* 主页 */
+    component: () => import("../views/HomePage.vue")  
   },
   {
     path: "/details",
     name: "Details",
-    component: () => import("../views/Details.vue")   /* 商品详情页 */
+    component: () => import("../views/Details.vue")   
   },
   {
     path: "/ReturnandExchange",
     name: "ReturnandExchange",
-    component: () => import("../views/ReturnandExchange.vue")   /* 商品详情页 */
+    component: () => import("../views/ReturnandExchange.vue")   
   },
   {
     path:"/FreeShip",
@@ -29,17 +29,22 @@ export  const routes = [
   {
     path: '/mycart',
     name: 'Mycart',
-    component: () => import('../views/Mycart.vue')   /* 购物车页面 */
+    component: () => import('../views/Mycart.vue')  
   },
   {
     path:"/Service",
     name: "Service",
     component: () => import('../views/Service.vue')
   },
-  {
+ {
     path: '/login',
     name: 'Login',
-    component: () => import('../views/Login.vue')  /* 登录页面 */
+    component: () => import('../views/Login.vue')  
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register.vue')  
   }
 
 ]

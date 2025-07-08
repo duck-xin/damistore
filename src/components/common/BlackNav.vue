@@ -31,10 +31,28 @@ export default {
         path: "/",
       })
     }
-
+// 新增方法，用于跳转到登录页面
+    const goToLogin = () => {
+      router.push({
+        path: "/login"
+      })
+    }
+    const goToRegister = () => {
+      router.push({
+        path: "/register"
+      });
+    }
+    const goToMycart = () => {
+      router.push({
+        path: "/mycart"
+      });
+    }
     return {
       ...toRefs(state),
-      showHome
+      showHome,
+      goToLogin,
+      goToRegister,
+      goToMycart
     }
   }
 }
@@ -50,7 +68,13 @@ export default {
       </div>
       <div class="navbar-middle">
         <ul class="black-nav-content">
-          <li v-for= "(item,index) in navright" :key= "index">{{ item.name }}</li>
+          <li v-for="(item, index) in navright" :key="index"
+              @click="
+             item.name === '登录' ? goToLogin() :
+             item.name === '注册' ? goToRegister() :
+              null">
+            {{ item.name }}
+          </li>
         </ul>
       </div>
       <div class="navbar-right">
@@ -58,7 +82,8 @@ export default {
           <!-- 购物车图片 -->
           <div class="shopping_img"></div>
           &nbsp;
-          <p>购物车&nbsp;(0)</p >
+           <!-- 购物车（0）需修改 -->
+           <p @click="goToMycart">购物车&nbsp;(0)</p>
         </div>
 
       </div>
