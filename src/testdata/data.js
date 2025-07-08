@@ -1,3 +1,4 @@
+
 var quanbushangpin =  [
         {
             /* 首页展示的信息 */
@@ -1397,21 +1398,11 @@ var quanbushangpin =  [
         }
     ];
 /* 按类别返回某类别商品数组 */
-var userlist = [
+const userlist = [
     {
       id: 1,
       name: 'a',
       password: 'a'
-    },
-    {
-      id: 2,
-      name: 'b',
-      password: 'b'
-    },
-    {
-      id: 3,
-      name: 'c',
-      password: 'c'
     }
 ];
 export function getShangPinData(a) {
@@ -1427,3 +1418,6 @@ export function getShangPinData(a) {
 export function getUserData() {
     return userlist;
 }
+//导出用户
+export default userlist
+ 

@@ -5,9 +5,11 @@
     <whitenav></whitenav>
     <div class="breadcrumbs">
       <div class="container">
-        <p class="sep">首页/</p>
-        <p class="sep">服务中心/</p>
-        <p>小米售后服务政策查询</p>
+        <span class="crumb">首页</span>
+      <span class="sep">/</span>
+      <span class="crumb">服务中心</span>
+      <span class="sep">/</span>
+      <span class="current">小米售后服务政策查询</span>
       </div>
     </div>
     <div class="mi-exchange">
@@ -224,14 +226,21 @@ export default {
   min-width: 1226px;
   position: relative;
 }
-.breadcrumbs .container p {
-  display: inline;
-  margin: 0;
-  padding: 0;
-}
-.sep:hover {
-  color: #FF5500;
+.breadcrumbs .crumb {
+  color: #757575;
   cursor: pointer;
+  margin: 0 4px; 
+}
+
+.breadcrumbs .container .crumb:hover {
+  color: #FF5500;
+}
+.breadcrumbs .current{
+   color: #757575;
+}
+.breadcrumbs .sep {
+  color: #757575;
+  margin: 0 4px; 
 }
 .breadcrumbs {
   height: 40px;
