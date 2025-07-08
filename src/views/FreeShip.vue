@@ -108,7 +108,7 @@
             </div>
             <div class="collapse-content" v-show="openStates[index]">
               <div class="con">
-                <span style="font-size: 16px; white-space: pre-wrap">{{ item.content }}</span>
+                <span style="font-size: 16px; white-space: pre-wrap"  v-html="item.content"></span>
               </div>
             </div>
           </div>
@@ -190,6 +190,42 @@ export default {
   methods: {
     setFreeshipData(){
       this.localItems = [
+        {
+          title:'小米商城自营商品邮费一览表',
+          content: `
+        <table  border="1" cellpadding="5" cellspacing="0">
+          <thead>
+            <tr>
+              <th>商品类别</th>
+              <th>69元以下/单</th>
+              <th>69元以上/单</th>
+              <th>配送方式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>手机、智能、配件等商品</td>
+              <td>10元/单</td>
+              <td>免费送货</td>
+              <td>快递送货上门</td>
+            </tr>
+            <tr>
+              <td>小米电视<br>小米电视主机</td>
+              <td>免费送货</td>
+              <td>免费送货</td>
+              <td>快递送货上门</td>
+            </tr>
+            <tr>
+              <td>小米低音炮</td>
+              <td>每件配送费50元</td>
+              <td>每件配送费50元</td>
+              <td>快递送货上门</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="first">注“满69元免邮费”是指实际支付金额超过69元。</p>
+      `
+        },
         
         {
           title: '为什么自营商品订单满69元还要支付快递费用？',
@@ -541,4 +577,5 @@ a:hover {
   padding: 30px 20px 30px 40px;
   background-color: #fbfbfb;
 }
+
 </style>
