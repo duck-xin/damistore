@@ -19,7 +19,7 @@ export default {
         { name: "Select Location" }
       ],
       navright: [
-        { name: "登陆" },
+        { name: "登录" },
         { name: "注册" },
         { name: "消息通知" }
       ]

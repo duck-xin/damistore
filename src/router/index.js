@@ -35,12 +35,12 @@ export  const routes = [
     path:"/Service",
     name: "Service",
     component: () => import('../views/Service.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login.vue')  /* 登录页面 */
   }
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('../views/Login.vue')  /* 登录页面 */
-  // }
 
 ]
 /* 创建路由管理器 */
