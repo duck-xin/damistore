@@ -314,6 +314,18 @@ export default {
       state.selectedshangpian.data.yiwaibaoxianid = state.yiwaibaoxian.id;
       state.selectedshangpian.data.yanchangbaoxianid = state.yanchangbaoxian.id;
       state.selectedshangpian.data.yunserveid = state.yunserve.id;
+      //添加完整商品信息
+      state.selectedshangpian.shangpinInfo = {
+        name: state.shangpin.name,
+        price: state.total,
+        xinghao: state.xinghao.name,
+        peizhi: state.peizhi.name,
+        color: state.color.name,
+        image: state.shangpin.infoIMgsrc,
+        yanchangbaoxian:state.yanchangbaoxian.name||'无',
+        yiwaibaoxian: state.yiwaibaoxian.name || "无",  
+        yunserve: state.yunserve.name || "无",  
+    };
       cartstore.addShangPinInCart(state.selectedshangpian);
       cartstore.getShangPinsInCart.length;
       router.push({
