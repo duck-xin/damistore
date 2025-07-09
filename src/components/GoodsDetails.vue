@@ -32,8 +32,8 @@
                 <div class="shoujidetails">
                     <div class="xiliemingbig">{{ ShangPinData.leibiexiliename }}</div>
                     <div class="liangdian-b">
-                        <span class="liangdian-text" v-for="(item, index) in ShangPinData.liangdian"
-                            :key="index">{{ ShangPinData.liangdian[index] }} | </span>
+                        <span class="liangdian-text" v-for="(item, index) in ShangPinData.liangdian" :key="index">{{
+                            ShangPinData.liangdian[index] }} | </span>
                     </div>
                     <div class="xiaomiziying">小米自营</div>
                     <p class="jiage-text-a">{{ shangpinjiage }}元</p>
@@ -68,7 +68,8 @@
                     <div class="select-btn-box">
                         <div v-for="(item, index) in ShangPinData.xinghao" :key="index"
                             @click="changSelectedXingHao(index)"
-                            v-bind:class="index == currentxinghao ? 'select-btn selected' : 'select-btn'">{{ item.name }}</div>
+                            v-bind:class="index == currentxinghao ? 'select-btn selected' : 'select-btn'">{{ item.name
+                            }}</div>
                     </div>
                 </div>
                 <div class="select-peizhi-box">
@@ -76,14 +77,16 @@
                     <div class="select-btn-box">
                         <div v-for="(item, index) in ShangPinData.peizhi" :key="index"
                             @click="changSelectedPeiZhi(index)"
-                            v-bind:class="index == currentpeizhi ? 'select-btn selected' : 'select-btn'">{{ item.name }}</div>
+                            v-bind:class="index == currentpeizhi ? 'select-btn selected' : 'select-btn'">{{ item.name }}
+                        </div>
                     </div>
                 </div>
                 <div class="select-peizhi-box">
                     <div class="select-title">选择颜色</div>
                     <div class="select-btn-box">
                         <div v-for="(item, index) in ShangPinData.color" :key="index" @click="changSelectedColor(index)"
-                            v-bind:class="index == currentcolor ? 'select-btn selected' : 'select-btn'">{{ item.name }}</div>
+                            v-bind:class="index == currentcolor ? 'select-btn selected' : 'select-btn'">{{ item.name }}
+                        </div>
                     </div>
                 </div>
                 <div class="select-peizhi-box">
@@ -97,7 +100,8 @@
                             v-bind:class="{ 'selected': index == currentyiwaibaoxian }">
                             <div class="select-baohu-bottom-left">
                                 <!--                                <div v-bind:class="index==currentyiwaibaoxian?'select-baohu-point selected':'select-baohu-point'">></div>-->
-                                <div class="select-baohu-point" v-bind:class="{ 'selected': index == currentyiwaibaoxian }">>
+                                <div class="select-baohu-point"
+                                    v-bind:class="{ 'selected': index == currentyiwaibaoxian }">>
                                 </div>
                                 <div class="baohu-icon"></div>
                             </div>
@@ -109,7 +113,8 @@
                                     </div>
                                     <div class="baohu-text-c">{{ item.infodetails }}</div>
                                     <div class="baohu-content-textrow">
-                                        <div class="fang-point" v-bind:class="{ 'selected': index == currentyiwaibaoxian }">>
+                                        <div class="fang-point"
+                                            v-bind:class="{ 'selected': index == currentyiwaibaoxian }">>
                                         </div>
                                         <p class="baohu-text-d">我已阅读</p>
                                         <p class="baohu-text-e">服务条款</p>
@@ -186,7 +191,9 @@
                                     </div>
                                     <div class="baohu-text-c">{{ item.infodetails }}</div>
                                     <div class="baohu-content-textrow">
-                                        <div v-bind:class="index == currentyunserve ? 'fang-point selected' : 'fang-point'">>
+                                        <div
+                                            v-bind:class="index == currentyunserve ? 'fang-point selected' : 'fang-point'">
+                                            >
                                         </div>
                                         <p class="baohu-text-d">我已阅读</p>
                                         <p class="baohu-text-e">服务条款</p>
@@ -255,13 +262,13 @@ import { onMounted, computed, reactive, toRefs } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getCurrentInstance } from 'vue'
 import useCartStore from '@/stores/cartstore.js';
-import { useUserStore } from '@/stores/userstore';
+//import { useUserStore } from '@/stores/userstore';
 export default {
     setup() {
         //先导入
         const router = useRouter()
         const cartstore = useCartStore()
-        const userStore = useUserStore();
+        //const userStore = useUserStore();
         const { proxy } = getCurrentInstance()
         const route = useRoute()
         const state = reactive({
@@ -331,13 +338,42 @@ export default {
                 state.yunserve = state.shangpin.yunserve[index];
             }
         }
-        //购物车部分
+        // //购物车部分
+        // const gomycart = () => {
+        //     // if (!userStore.isLoggedIn) {
+        //     //     alert("请先登录！");
+        //     //     router.push("/login");
+        //     //     return;
+        //     // }
+        //     state.selectedshangpian.shangpinid = state.id;
+        //     state.selectedshangpian.data.xinghaoid = state.xinghao.id;
+        //     state.selectedshangpian.data.peizhiid = state.peizhi.id;
+        //     state.selectedshangpian.data.colorid = state.color.id;
+        //     state.selectedshangpian.data.yiwaibaoxianid = state.yiwaibaoxian.id;
+        //     state.selectedshangpian.data.yanchangbaoxianid = state.yanchangbaoxian.id;
+        //     state.selectedshangpian.data.yunserveid = state.yunserve.id;
+        //     //添加完整商品信息
+        //     state.selectedshangpian.shangpinInfo = {
+        //         name: state.shangpin.name,
+        //         price: state.total,
+        //         xinghao: state.xinghao.name,
+        //         peizhi: state.peizhi.name,
+        //         color: state.color.name,
+        //         image: state.shangpin.infoIMgsrc,
+        //         yanchangbaoxian: state.yanchangbaoxian.name || '无',
+        //         yiwaibaoxian: state.yiwaibaoxian.name || "无",
+        //         yunserve: state.yunserve.name || "无",
+        //     };
+
+        //     cartstore.addShangPinInCart(state.selectedshangpian);
+        //     cartstore.getShangPinsInCart.length;
+        //     router.push({
+        //         path: '/mycart',
+        //     })
+
+
+        // }
         const gomycart = () => {
-            if (!userStore.isLoggedIn) {
-                alert("请先登录！");
-                router.push("/login");
-                return;
-            }
             state.selectedshangpian.shangpinid = state.id;
             state.selectedshangpian.data.xinghaoid = state.xinghao.id;
             state.selectedshangpian.data.peizhiid = state.peizhi.id;
@@ -357,14 +393,11 @@ export default {
                 yiwaibaoxian: state.yiwaibaoxian.name || "无",
                 yunserve: state.yunserve.name || "无",
             };
-
             cartstore.addShangPinInCart(state.selectedshangpian);
             cartstore.getShangPinsInCart.length;
             router.push({
                 path: '/mycart',
             })
-
-
         }
         //保护内部变量
         const ShangPinData = computed(() => {
@@ -460,7 +493,6 @@ export default {
             currentyiwaibaoxian,
             currentyanchangbaoxian,
             currentyunserve,
-            selectedshangpininfo,
             selectedyiwaibaoxianname,
             selectedyiwaibaoxianjiage,
             selectedyanchangbaoxianname,
@@ -468,7 +500,7 @@ export default {
             selectedyunservename,
             selectedyunservejiage,
             shangpintotal,
-            selectedshangpininfo,
+
             //导出方法
             changSelectedXingHao,
             changSelectedColor,

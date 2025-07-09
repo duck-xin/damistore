@@ -28,23 +28,12 @@ export default {
 
     })
     const router = useRouter();
+    const userStore = useUserStore();
+    const cartStore = useCartStore();
 
-     const cartStore = useCartStore();
-
-     const userStore = useUserStore();
-     //根据是否判断是否登录来显示
-     const navRightDisplay = computed(() => {
-      if (userStore.isLoggedIn) {
-        return [
-          { name: userStore.userName }, // 显示用户名
-          { name: "消息通知" }
-        ];
-      } else {
-        return state.navright; // 默认显示 "登录|注册|消息通知"
-      }
-    });
+    
      // 对购物车商品数量更新
-    const cartCount = computed(() => cartStore.cartCount);
+   const cartCount = computed(() => cartStore.cartCount);
     const showHome = () => {
       router.push({
         path: "/",
@@ -66,6 +55,18 @@ export default {
         path: "/mycart"
       });
     }
+     // 计算属性：根据登录状态决定显示内容
+    const navRightDisplay = computed(() => {
+      if (userStore.isLoggedIn) {
+        return [
+          { name: userStore.userName }, // 显示用户名
+          { name: "消息通知" }
+        ];
+      } else {
+        return state.navright; // 默认显示 "登录|注册|消息通知"
+      }
+    });
+
     return {
       ...toRefs(state),
       showHome,
@@ -73,7 +74,7 @@ export default {
       goToRegister,
       goToMycart,
       cartCount,
-      navRightDisplay, // 返回动态计算的导航右侧内容
+     navRightDisplay, // 返回动态计算的导航右侧内容
     }
   }
 }
@@ -105,7 +106,7 @@ export default {
           &nbsp;
            <!-- 购物车（0）需修改 -->
            <!-- <p @click="goToMycart">购物车&nbsp;(0)</p> -->
-           <p @click="goToMycart">购物车&nbsp;({{ cartCount }})</p>
+            <p @click="goToMycart">购物车&nbsp;({{ cartCount }})</p> 
           </div>
 
       </div>
