@@ -45,10 +45,6 @@ export default {
 
     return {
       ...toRefs(state),
-      searchInputFocus,
-      searchInputBlur,
-      searchInputMouseEnter,
-      searchInputMouseLeave
     }
   }
 }
