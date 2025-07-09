@@ -3,11 +3,14 @@ import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 //导入文件
 import userlist from '@/testdata/data.js';
+import { useUserStore } from '@/stores/userstore'; // 导入用户状态
+
 // 状态管理
 const router = useRouter();
 const username = ref('');
 const password = ref('');
 const userItems = userlist // 存储用户数据
+const userStore = useUserStore(); // 获取用户store
 
 // 方法定义
 const goLogin = () => {
@@ -19,6 +22,7 @@ const goLogin = () => {
   //登录逻辑
   const user = userItems.find(item => item.name === username.value && item.password === password.value);
   if (user) {
+    userStore.loginSuccess(user.id, username.value); // 传入用户ID和用户名
     alert('登录成功');
     
   // 使用router进行页面跳转

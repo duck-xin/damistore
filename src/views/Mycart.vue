@@ -18,21 +18,28 @@
 import {onMounted, computed, reactive, toRefs} from 'vue'
 import { useCartStore } from '@/stores/cartstore';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/userstore';
 import { ref } from 'vue';
 import goodslist from '@/testdata/data.js';
 export default {
   setup() {
     const router = useRouter();
     const cartstore = useCartStore();
+    const userStore = useUserStore();
     const state = reactive({
-      cartCount: computed(() => cartstore.getCartCount),
-      cartItems: computed(() => cartstore.getShangPinsInCart),
-      number: 100,
+      // cartCount: computed(() => cartstore.getCartCount),
+      // cartItems: computed(() => cartstore.getShangPinsInCart),
+      // number: 100,
+      cartItems: computed(() => cartstore.getCurrentUserCart), 
+      number: computed(() => cartstore.cartCount)          
       
     })
    
     onMounted(() => {
-      state.number = cartstore.getShangPinsInCart.length;
+       if (!userStore.isLoggedIn) {
+      router.push('/login');
+    }
+      //state.number = cartstore.getShangPinsInCart.length;
     })
     return {
       ...toRefs(state),

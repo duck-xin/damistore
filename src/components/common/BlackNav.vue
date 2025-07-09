@@ -1,6 +1,8 @@
 <script>
-import { reactive,toRefs} from "vue";
-import { useRouter } from 'vue-router'
+import { reactive,toRefs,computed} from "vue";
+import { useRouter } from 'vue-router';
+import { useCartStore } from '@/stores/cartstore'; 
+import { useUserStore } from '@/stores/userstore';
 export default {
   setup(){
     const state = reactive({
@@ -25,7 +27,24 @@ export default {
       ]
 
     })
-    const router = useRouter()
+    const router = useRouter();
+
+     const cartStore = useCartStore();
+
+     const userStore = useUserStore();
+     //根据是否判断是否登录来显示
+     const navRightDisplay = computed(() => {
+      if (userStore.isLoggedIn) {
+        return [
+          { name: userStore.userName }, // 显示用户名
+          { name: "消息通知" }
+        ];
+      } else {
+        return state.navright; // 默认显示 "登录|注册|消息通知"
+      }
+    });
+     // 对购物车商品数量更新
+    const cartCount = computed(() => cartStore.cartCount);
     const showHome = () => {
       router.push({
         path: "/",
@@ -52,7 +71,9 @@ export default {
       showHome,
       goToLogin,
       goToRegister,
-      goToMycart
+      goToMycart,
+      cartCount,
+      navRightDisplay, // 返回动态计算的导航右侧内容
     }
   }
 }
@@ -68,7 +89,7 @@ export default {
       </div>
       <div class="navbar-middle">
         <ul class="black-nav-content">
-          <li v-for="(item, index) in navright" :key="index"
+          <li v-for="(item, index) in navRightDisplay" :key="index"
               @click="
              item.name === '登录' ? goToLogin() :
              item.name === '注册' ? goToRegister() :
@@ -83,8 +104,9 @@ export default {
           <div class="shopping_img"></div>
           &nbsp;
            <!-- 购物车（0）需修改 -->
-           <p @click="goToMycart">购物车&nbsp;(0)</p>
-        </div>
+           <!-- <p @click="goToMycart">购物车&nbsp;(0)</p> -->
+           <p @click="goToMycart">购物车&nbsp;({{ cartCount }})</p>
+          </div>
 
       </div>
 
