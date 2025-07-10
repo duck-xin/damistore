@@ -5,7 +5,7 @@
   <div class="main">
     <div class="breadcrumbs">
       <div class="container">
-        <span class="crumb">首页</span>
+      <span class="crumb">首页</span>
       <span class="sep">/</span>
       <span class="crumb">服务中心</span>
       <span class="sep">/</span>

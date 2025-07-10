@@ -22,7 +22,7 @@ const goLogin = () => {
   //登录逻辑
   const user = userItems.find(item => item.name === username.value && item.password === password.value);
   if (user) {
-    userStore.loginSuccess(user.id, username.value); // 传入用户ID和用户名
+    userStore.loginSuccess( username.value); // 传入用户ID和用户名
     alert('登录成功');
     
   // 使用router进行页面跳转
